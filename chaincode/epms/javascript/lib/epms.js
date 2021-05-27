@@ -29,28 +29,28 @@ class EPMS extends Contract {
         console.info("============= END : Initialize Ledger ===========");
     }
 
-    async queryCar(ctx, carNumber) {
-        const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
-        if (!carAsBytes || carAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
+    async queryEpm(ctx, epmNumber) {
+        const epmAsBytes = await ctx.stub.getState(epmNumber); // get the epm from chaincode state
+        if (!epmAsBytes || epmAsBytes.length === 0) {
+            throw new Error(`${epmNumber} does not exist`);
         }
-        console.log(carAsBytes.toString());
-        return carAsBytes.toString();
+        console.log(epmAsBytes.toString());
+        return epmAsBytes.toString();
     }
 
-    async createCar(ctx, carNumber, make, model, color, owner) {
-        console.info("============= START : Create Car ===========");
+    async createEpm(ctx, epmNumber, name, epms, train, predial) {
+        console.info("============= START : Create Epms ===========");
 
-        const car = {
-            color,
-            docType: "car",
-            make,
-            model,
-            owner,
+        const epm = {
+            name,
+            docType: "epm",
+            epms,
+            train,
+            predial,
         };
 
-        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
-        console.info("============= END : Create Car ===========");
+        await ctx.stub.putState(epmNumber, Buffer.from(JSON.stringify(epm)));
+        console.info("============= END : Create Epms ===========");
     }
 
     async queryAllCars(ctx) {

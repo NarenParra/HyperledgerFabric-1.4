@@ -37,20 +37,20 @@ let Chaincode = class {
     }
   }
 
-  async queryCar(stub, args) {
+  async queryEpm(stub, args) {
     if (args.length != 1) {
       throw new Error(
-        "Incorrect number of arguments. Expecting CarNumber ex: CAR01"
+        "Incorrect number of arguments. Expecting EpmNumber ex: EPM01"
       );
     }
-    let carNumber = args[0];
+    let epmNumber = args[0];
 
-    let carAsBytes = await stub.getState(carNumber); //get the car from chaincode state
-    if (!carAsBytes || carAsBytes.toString().length <= 0) {
-      throw new Error(carNumber + " does not exist: ");
+    let epmAsBytes = await stub.getState(epmNumber); //get the epm from chaincode state
+    if (!epmAsBytes || epmAsBytes.toString().length <= 0) {
+      throw new Error(epmNumber + " does not exist: ");
     }
-    console.log(carAsBytes.toString());
-    return carAsBytes;
+    console.log(epmAsBytes.toString());
+    return epmAsBytes;
   }
 
   async initLedger(stub, args) {
@@ -71,22 +71,22 @@ let Chaincode = class {
     console.info("============= END : Initialize Ledger ===========");
   }
 
-  async createCar(stub, args) {
-    console.info("============= START : Create Car ===========");
+  async createEpm(stub, args) {
+    console.info("============= START : Create Epm ===========");
     if (args.length != 5) {
       throw new Error("Incorrect number of arguments. Expecting 5");
     }
 
-    var car = {
-      docType: "car",
-      make: args[1],
-      model: args[2],
-      color: args[3],
-      owner: args[4],
+    var epm = {
+      docType: "epm",
+      name: args[1],
+      epms: args[2],
+      train: args[3],
+      predial: args[4],
     };
 
-    await stub.putState(args[0], Buffer.from(JSON.stringify(car)));
-    console.info("============= END : Create Car ===========");
+    await stub.putState(args[0], Buffer.from(JSON.stringify(epm)));
+    console.info("============= END : Create Epm ===========");
   }
 
   async queryAllCars(stub, args) {
