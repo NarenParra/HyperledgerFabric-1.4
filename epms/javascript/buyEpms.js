@@ -52,7 +52,7 @@ async function main() {
         // Submit the specified transaction.
         // createEpm transaction - requires 5 argument, ex: ('createEpm', 'EPM12', 'Honda', 'Accord', 'Black', 'Tom')
 
-        await contract.submitTransaction("buyEpms", "EPM12", "1");
+        await contract.submitTransaction("buyEpms", "EPM0", "500");
         console.log("Transaction has been submitted");
 
         // Disconnect from the gateway.

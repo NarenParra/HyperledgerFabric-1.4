@@ -134,6 +134,20 @@ let Chaincode = class {
     await stub.putState(args[0], Buffer.from(JSON.stringify(car)));
     console.info("============= END : changeCarOwner ===========");
   }
+
+  async buyEpms(stub, args) {
+    console.info("============= START : buyEpms ===========");
+    if (args.length != 2) {
+      throw new Error("Incorrect number of arguments. Expecting 2");
+    }
+
+    let epmAsBytes = await stub.getState(args[0]);
+    let epm = JSON.parse(epmAsBytes);
+    epm.npms += args[1];
+
+    await stub.putState(args[0], Buffer.from(JSON.stringify(epm)));
+    console.info("============= END : buyEpms ===========");
+  }
 };
 
 shim.start(new Chaincode());

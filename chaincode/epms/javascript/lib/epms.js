@@ -85,32 +85,60 @@ class EPMS extends Contract {
         }
     }
 
-    async changeCarOwner(ctx, carNumber, newOwner) {
-        console.info("============= START : changeCarOwner ===========");
-
-        const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
-        if (!carAsBytes || carAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
-        }
-        const car = JSON.parse(carAsBytes.toString());
-        car.owner = newOwner;
-
-        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
-        console.info("============= END : changeCarOwner ===========");
-    }
-
     async buyEpms(ctx, epmNumber, amount) {
         console.info("============= START : buyEpms ===========");
 
         const epmAsBytes = await ctx.stub.getState(epmNumber); // get the car from chaincode state
         if (!epmAsBytes || epmAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
+            throw new Error(`${epmNumber} does not exist`);
         }
         const epm = JSON.parse(epmAsBytes.toString());
-        epm.epms += amount;
+        epm.epms = parseInt(epm.epms) + parseInt(amount);
 
-        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(epm)));
+        await ctx.stub.putState(epmNumber, Buffer.from(JSON.stringify(epm)));
         console.info("============= END : buyEpms ===========");
+    }
+
+    async buyMetroTickets(ctx, epmNumber, amount) {
+        console.info("============= START : buyMetroTickets ===========");
+
+        const epmAsBytes = await ctx.stub.getState(epmNumber); // get the car from chaincode state
+        if (!epmAsBytes || epmAsBytes.length === 0) {
+            throw new Error(`${epmNumber} does not exist`);
+        }
+
+        const epm = JSON.parse(epmAsBytes.toString());
+
+        if (epm.epms < amount) {
+            throw new Error(`${epmNumber} lower npms than requested`);
+        }
+
+        epm.epms = parseInt(epm.epms) - parseInt(amount);
+        epm.train = parseInt(epm.train) + parseInt(amount);
+
+        await ctx.stub.putState(epmNumber, Buffer.from(JSON.stringify(epm)));
+        console.info("============= END : buyMetroTickets ===========");
+    }
+
+    async payPredial(ctx, epmNumber, amount) {
+        console.info("============= START : buyMetroTickets ===========");
+
+        const epmAsBytes = await ctx.stub.getState(epmNumber); // get the car from chaincode state
+        if (!epmAsBytes || epmAsBytes.length === 0) {
+            throw new Error(`${epmNumber} does not exist`);
+        }
+
+        const epm = JSON.parse(epmAsBytes.toString());
+
+        if (epm.epms < amount) {
+            throw new Error(`${epmNumber} lower npms than requested`);
+        }
+
+        epm.epms = parseInt(epm.epms) - parseInt(amount);
+        epm.predial = parseInt(epm.predial) + parseInt(amount);
+
+        await ctx.stub.putState(epmNumber, Buffer.from(JSON.stringify(epm)));
+        console.info("============= END : buyMetroTickets ===========");
     }
 }
 
