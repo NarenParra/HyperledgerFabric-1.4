@@ -53,9 +53,9 @@ class EPMS extends Contract {
         console.info("============= END : Create Epms ===========");
     }
 
-    async queryAllCars(ctx) {
-        const startKey = "CAR0";
-        const endKey = "CAR999";
+    async queryAllEpms(ctx) {
+        const startKey = "EPM0";
+        const endKey = "EPM999";
 
         const iterator = await ctx.stub.getStateByRange(startKey, endKey);
 
@@ -97,6 +97,20 @@ class EPMS extends Contract {
 
         await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
         console.info("============= END : changeCarOwner ===========");
+    }
+
+    async buyEpms(ctx, epmNumber, amount) {
+        console.info("============= START : buyEpms ===========");
+
+        const epmAsBytes = await ctx.stub.getState(epmNumber); // get the car from chaincode state
+        if (!epmAsBytes || epmAsBytes.length === 0) {
+            throw new Error(`${carNumber} does not exist`);
+        }
+        const epm = JSON.parse(epmAsBytes.toString());
+        epm.epms += amount;
+
+        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(epm)));
+        console.info("============= END : buyEpms ===========");
     }
 }
 

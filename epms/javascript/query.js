@@ -52,8 +52,8 @@ async function main() {
         // Evaluate the specified transaction.
         // queryEpm transaction - requires 1 argument, ex: ('queryEpm', 'Epm4')
         // queryAllEpms transaction - requires no arguments, ex: ('queryAllEpms')
-        //  const result = await contract.evaluateTransaction('queryAllEpms');
-        const result = await contract.evaluateTransaction("queryEpm", "EPM12");
+        const result = await contract.evaluateTransaction("queryAllEpms");
+        // const result = await contract.evaluateTransaction("queryEpm", "EPM12");
         console.log(
             `Transaction has been evaluated, result is: ${result.toString()}`
         );
