@@ -55,8 +55,8 @@ cat <<EOF
 
 Total setup execution time : $(($(date +%s) - starttime)) secs ...
 
-Next, use the FabCar applications to interact with the deployed FabCar contract.
-The FabCar applications are available in multiple programming languages.
+Next, use the EPMS applications to interact with the deployed EPMS contract.
+The EPMS applications are available in multiple programming languages.
 Follow the instructions for the programming language of your choice:
 
 JavaScript:
@@ -69,7 +69,7 @@ JavaScript:
 
   Then run the following applications to enroll the admin user, and register a new user
   called user1 which will be used by the other applications to interact with the deployed
-  FabCar contract:
+  EPMS contract:
     node enrollAdmin
     node registerUser
 
@@ -94,7 +94,7 @@ TypeScript:
 
   Then run the following applications to enroll the admin user, and register a new user
   called user1 which will be used by the other applications to interact with the deployed
-  FabCar contract:
+  EPMS contract:
     node dist/enrollAdmin
     node dist/registerUser
 
