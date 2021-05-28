@@ -109,7 +109,7 @@ class EPMS extends Contract {
 
         const epm = JSON.parse(epmAsBytes.toString());
 
-        if (epm.epms < amount) {
+        if (parseInt(epm.epms) < parseInt(amount)) {
             throw new Error(`${epmNumber} lower npms than requested`);
         }
 
@@ -130,7 +130,7 @@ class EPMS extends Contract {
 
         const epm = JSON.parse(epmAsBytes.toString());
 
-        if (epm.epms < amount) {
+        if (parseInt(epm.epms) < parseInt(amount)) {
             throw new Error(`${epmNumber} lower npms than requested`);
         }
 
