@@ -30,26 +30,20 @@ app.get("/query", async function (req, res) {
 });
 
 app.put("/buyepms", async function (req, res) {
-    console.log(req.query.number);
-    let message = await buyEpms.buyEpms(req.query.number, req.query.amount);
+    const { number, amount } = req.query;
+    let message = await buyEpms.buyEpms(number, amount);
     res.send(message);
 });
 
 app.put("/buymetrotickets", async function (req, res) {
-    console.log(req.query.number);
-    let message = await buyMetroTickets.buyMetroTickets(
-        req.query.number,
-        req.query.amount
-    );
+    const { number, amount } = req.query;
+    let message = await buyMetroTickets.buyMetroTickets(number, amount);
     res.send(message);
 });
 
 app.put("/paypredial", async function (req, res) {
-    console.log(req.query.number);
-    let message = await payPredial.payPredial(
-        req.query.number,
-        req.query.amount
-    );
+    const { number, amount } = req.query;
+    let message = await payPredial.payPredial(number, amount);
     res.send(message);
 });
 
