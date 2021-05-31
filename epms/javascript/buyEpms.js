@@ -18,7 +18,7 @@ const ccpPath = path.resolve(
 const ccpJSON = fs.readFileSync(ccpPath, "utf8");
 const ccp = JSON.parse(ccpJSON);
 
-async function main() {
+const buyEpms = async function (number, amount) {
     try {
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), "wallet");
@@ -52,15 +52,20 @@ async function main() {
         // Submit the specified transaction.
         // createEpm transaction - requires 5 argument, ex: ('createEpm', 'EPM12', 'Honda', 'Accord', 'Black', 'Tom')
 
-        await contract.submitTransaction("buyEpms", "EPM0", "500");
+        await contract.submitTransaction("buyEpms", number, amount);
         console.log("Transaction has been submitted");
 
         // Disconnect from the gateway.
         await gateway.disconnect();
+
+        return {
+            mesaage: "Transaction has been submitted",
+        };
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
         process.exit(1);
+        return error;
     }
-}
+};
 
-main();
+exports.buyEpms = buyEpms;
