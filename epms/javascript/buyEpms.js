@@ -64,7 +64,6 @@ const buyEpms = async function (number, amount) {
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
         process.exit(1);
-        return error;
     }
 };
 

@@ -18,7 +18,7 @@ const ccpPath = path.resolve(
 const ccpJSON = fs.readFileSync(ccpPath, "utf8");
 const ccp = JSON.parse(ccpJSON);
 
-async function main() {
+const payPredial = async function () {
     try {
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), "wallet");
@@ -57,10 +57,13 @@ async function main() {
 
         // Disconnect from the gateway.
         await gateway.disconnect();
+        return {
+            message: "Transaction has been submitted",
+        };
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
         process.exit(1);
     }
-}
+};
 
-main();
+exports.payPredial = payPredial;
