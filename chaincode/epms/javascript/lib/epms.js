@@ -10,7 +10,7 @@ class EPMS extends Contract {
     async initLedger(ctx) {
         console.info("============= START : Initialize Ledger ===========");
         const user = [
-                { udi: "", name: "naren", epms: 1000 }],
+                { udi: "", name: "naren", epms: 1000 },
         ];
 
         for (let i = 0; i < user.length; i++) {
@@ -31,13 +31,13 @@ class EPMS extends Contract {
                 { udi: "", name: "naren", epms: 1000 }],
         ];
 
-        for (let i = 0; i < user.length; i++) {
-            user[i].docType = "user";
+        for (let i = 0; i < organization.length; i++) {
+            organization[i].docType = "organization";
             await ctx.stub.putState(
-                "user" + i,
-                Buffer.from(JSON.stringify(user[i]))
+                "organization" + i,
+                Buffer.from(JSON.stringify(organization[i]))
             );
-            console.info("Added <--> ", user[i]);
+            console.info("Added <--> ", organization[i]);
         }
 
         console.info("============= END : Initialize Ledger ===========");
