@@ -9,23 +9,41 @@ const { Contract } = require("fabric-contract-api");
 class EPMS extends Contract {
     async initLedger(ctx) {
         console.info("============= START : Initialize Ledger ===========");
-        const epms = [
+        const user = [
             {
-                name: "blue",
-                epms: "123456",
-                train: "0",
-                predial: "0",
+                users: [{ udi: "", name: "naren", epms: 1000 }],
             },
+            {
+                transaction = [
+                    {
+                        uid_user:"",
+                        uid_organization:"",
+                        epms=0
+                    },
+                ]
+            },
+            {
+                organization = [
+                    {
+                        uid:"",
+                        name= "",
+                        epms_generated:0,
+                        epms_redeemed:0,
+                    },
+                ]
+            }
+
         ];
 
-        for (let i = 0; i < epms.length; i++) {
-            epms[i].docType = "epm";
+        for (let i = 0; i < user.length; i++) {
+            user[i].docType = "user";
             await ctx.stub.putState(
-                "EPM" + i,
-                Buffer.from(JSON.stringify(epms[i]))
+                "user" + i,
+                Buffer.from(JSON.stringify(user[i]))
             );
-            console.info("Added <--> ", epms[i]);
+            console.info("Added <--> ", user[i]);
         }
+
         console.info("============= END : Initialize Ledger ===========");
     }
 
