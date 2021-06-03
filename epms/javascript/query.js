@@ -18,7 +18,7 @@ const ccpPath = path.resolve(
 const ccpJSON = fs.readFileSync(ccpPath, "utf8");
 const ccp = JSON.parse(ccpJSON);
 
-const query = async function () {
+const query = async function (identity) {
     try {
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), "wallet");
@@ -26,20 +26,22 @@ const query = async function () {
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const userExists = await wallet.exists("user1");
+        const userExists = await wallet.exists(identity);
         if (!userExists) {
             console.log(
-                'An identity for the user "user1" does not exist in the wallet from query'
+                `An identity for the user ${identity} does not exist in the wallet from query`
             );
             console.log("Run the registerUser.js application before retrying");
-            return;
+            return {
+                message: "Run the registerUser.js application before retrying",
+            };
         }
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
         await gateway.connect(ccp, {
             wallet,
-            identity: "user1",
+            identity: identity,
             discovery: { enabled: false },
         });
 
@@ -58,7 +60,7 @@ const query = async function () {
         return result;
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
-        process.exit(1);
+        return error;
     }
 };
 

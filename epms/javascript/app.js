@@ -19,20 +19,32 @@ app.post("/admin", async function (req, res) {
 
 //register user
 app.post("/user", async function (req, res) {
-    let message = await registerUser();
-    res.send(message);
+    try {
+        const { name } = req.query;
+        let message = await registerUser.registerUser(name);
+        res.send(message);
+    } catch (error) {
+        return res.send(error);
+    }
 });
 
 // Query on chaincode on target peers
 app.get("/query", async function (req, res) {
-    let message = await query.query();
+    const { identity } = req.query;
+
+    let message = await query.query(identity);
     res.send(message);
 });
 
 app.put("/buyepms", async function (req, res) {
-    const { number, amount } = req.query;
-    let message = await buyEpms.buyEpms(number, amount);
-    res.send(message);
+    try {
+        const { number, amount } = req.query;
+        let message = await buyEpms.buyEpms(number, amount);
+        res.send(message);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
 
 app.put("/buymetrotickets", async function (req, res) {
