@@ -10,29 +10,25 @@ class EPMS extends Contract {
     async initLedger(ctx) {
         console.info("============= START : Initialize Ledger ===========");
         const user = [
-            {
-                users: [{ udi: "", name: "naren", epms: 1000 }],
-            },
-            {
-                transaction = [
-                    {
-                        uid_user:"",
-                        uid_organization:"",
-                        epms=0
-                    },
-                ]
-            },
-            {
-                organization = [
-                    {
-                        uid:"",
-                        name= "",
-                        epms_generated:0,
-                        epms_redeemed:0,
-                    },
-                ]
-            }
+                { udi: "", name: "naren", epms: 1000 }],
+        ];
 
+        for (let i = 0; i < user.length; i++) {
+            user[i].docType = "user";
+            await ctx.stub.putState(
+                "user" + i,
+                Buffer.from(JSON.stringify(user[i]))
+            );
+            console.info("Added <--> ", user[i]);
+        }
+
+        console.info("============= END : Initialize Ledger ===========");
+    }
+
+    async initOrg(ctx) {
+        console.info("============= START : Initialize Ledger ===========");
+        const organization = [
+                { udi: "", name: "naren", epms: 1000 }],
         ];
 
         for (let i = 0; i < user.length; i++) {
