@@ -9,9 +9,7 @@ const { Contract } = require("fabric-contract-api");
 class EPMS extends Contract {
     async initLedger(ctx) {
         console.info("============= START : Initialize Ledger ===========");
-        const user = [
-                { udi: "", name: "naren", epms: 1000 },
-        ];
+        const user = [{ udi: "", name: "naren", epms: 1000 }];
 
         for (let i = 0; i < user.length; i++) {
             user[i].docType = "user";
@@ -27,9 +25,7 @@ class EPMS extends Contract {
 
     async initOrg(ctx) {
         console.info("============= START : Initialize Ledger ===========");
-        const organization = [
-                { udi: "", name: "naren", epms: 1000 }],
-        ];
+        const organization = [{ udi: "", name: "naren", epms: 1000 }];
 
         for (let i = 0; i < organization.length; i++) {
             organization[i].docType = "organization";
